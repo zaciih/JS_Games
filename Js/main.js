@@ -11,7 +11,7 @@ $(function(){
   //   }
 
 
-  // var player = new Player();
+  var player = new Player();
   var player = $("#player");
   console.log("player height = "+ player.height);
   console.log("player width = "+ player.width);
