@@ -37,3 +37,10 @@ h1 {
   width: 60px;
   content:url("../images/Enemy.png");
 }
+
+.enemy {
+  position: absolute;
+  height: auto;
+  width: auto;
+  content:url("../images/Enemy.png");
+}

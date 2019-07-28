@@ -11,19 +11,25 @@ $(function(){
       this.posx = 5;
       this.posy = 5;
       };
-    update_player(top, bottom, left, right){
-      top = this.player.offset().top;
-      bottom = this.top + this.height;
-      left = this.player.offset().left;
-      right = this.left + this.width;
-      move_player(top, bottom, left, right);
-      console.log("player posx = "+ player.posx);
-      console.log("wall = "+ background_right);
+    };
+
+  class Enemy {
+    constructor() {
+      this.enemy = $("#enemy");
+      this.height = this.enemy.height();
+      this.width = this.enemy.width();
+      this.top = this.enemy.offset().top;
+      this.bottom = this.top + this.height;
+      this.left = this.enemy.offset().left;
+      this.right = this.left + this.width;
+      this.posx = Math.floor(Math.random()* container.width());
+      this.posy = 50;
       };
     };
 
-
   var player = new Player();
+
+
 
   var container = $("#game_area");
   var container_top = container.offset().top;
@@ -32,6 +38,9 @@ $(function(){
   var container_right = container_left + container.width();
   var player_floor = container_bottom - (player.height*1.5);
 
+  function spawn_enemy() {
+    var enemy = new Enemy();
+  };
   // game_start();
 
   var background = $("#background");
@@ -93,19 +102,26 @@ $(function(){
     });
 
   // function game_start(){
-    game_interval = setInterval(function(container, container_bottom, container_left,
-      container_right, background_right, background_left, player_floor){
+    game_interval = setInterval(function(){
       container = $("#game_area");
       container_top = container.offset().top
       container_bottom = container_top + container.height();
       container_left = container.offset().left;
       container_right = container_left + container.width();
       background_right = container_right - (player.width*2);
-      player.update_player();
+      update_player();
       player_floor = container_bottom - (player.height*2);
-      move_background(background_right, player_right);
       }, 10);
     // };
+
+  function update_player(top, bottom, left, right){
+    top = player.player.offset().top;
+    bottom = player.top + player.height;
+    left = player.player.offset().left;
+    right = left + player.width;
+    move_player(top, bottom, left, right);
+    move_background(right);
+    };
 
   function move_player(top, bottom, left, right){
     player.player.css({
@@ -121,7 +137,6 @@ $(function(){
         player.posx +=2;
       };
     if (player.posy >= player_floor) {
-      // console.log(true);
       player.posy = player_floor;
       gravityspeed = 0;
       };
@@ -131,8 +146,9 @@ $(function(){
       };
     };
 
-  function move_background(background_right, player_right){
-    if (player_right >= background_right && right === true) {
+  function move_background(right){
+    if (right >= background_right && player_right == true) {
+      console.log("background scroll");
       background.css({
         'animation-play-state': 'running'
         });
