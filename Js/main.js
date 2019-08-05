@@ -13,23 +13,7 @@ $(function(){
       };
     };
 
-  class Enemy {
-    constructor() {
-      this.enemy = $("#enemy");
-      this.height = this.enemy.height();
-      this.width = this.enemy.width();
-      this.top = this.enemy.offset().top;
-      this.bottom = this.top + this.height;
-      this.left = this.enemy.offset().left;
-      this.right = this.left + this.width;
-      this.posx = Math.floor(Math.random()* container.width());
-      this.posy = 50;
-      };
-    };
-
   var player = new Player();
-
-
 
   var container = $("#game_area");
   var container_top = container.offset().top;
@@ -38,9 +22,42 @@ $(function(){
   var container_right = container_left + container.width();
   var player_floor = container_bottom - (player.height*1.5);
 
-  function spawn_enemy() {
-    var enemy = new Enemy();
-  };
+  class Enemy {
+    constructor() {
+      this.spawn = container.prepend("<div class='enemy' id='enemy'></div");
+      this.enemy = $("#enemy");
+      this.height = this.enemy.height();
+      this.width = this.enemy.width();
+      this.top = this.enemy.offset().top;
+      this.bottom = this.top + this.height;
+      this.left = this.enemy.offset().left;
+      this.right = this.left + this.width;
+      this.posx = Math.floor(Math.random()*container.width());
+      this.posy = player_floor;
+      };
+      update_enemy(){
+          this.top = this.enemy.offset().top;
+          this.bottom = this.top + this.height;
+          this.left = this.enemy.offset().left;
+          this.right = this.left + this.width;
+        };
+      move_enemy(){
+        this.enemy.css({
+          'left': this.posx + "px",
+          'top': this.posy + "px"
+          });
+        this.posy += gravity;
+        if (this.left >= container_left) {
+          this.posx -=1;
+          };
+        if (this.posy >= player_floor) {
+          this.posy = player_floor;
+          };
+        };
+    };
+
+  var enemies = [];
+
   // game_start();
 
   var background = $("#background");
@@ -110,6 +127,10 @@ $(function(){
       container_right = container_left + container.width();
       background_right = container_right - (player.width*2);
       update_player();
+      $(enemies).each(function(){
+        this.update_enemy();
+        this.move_enemy();
+        });
       player_floor = container_bottom - (player.height*2);
       }, 10);
     // };
@@ -138,9 +159,10 @@ $(function(){
       };
     if (player.posy >= player_floor) {
       player.posy = player_floor;
-      gravityspeed = 0;
       };
     if (player.posy >= player_floor && jump == true) {
+        enemy = new Enemy;
+        enemies.push(enemy);
         player.posy -= 10;
         gravityspeed = grav_decrease;
       };
