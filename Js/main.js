@@ -33,7 +33,7 @@ $(function(){
       this.left = this.enemy.offset().left;
       this.right = this.left + this.width;
       this.posx = Math.floor(Math.random()*container.width());
-      this.posy = player_floor;
+      this.posy = Math.floor(Math.random()*container.height());
       };
       update_enemy(){
           this.top = this.enemy.offset().top;
@@ -46,8 +46,8 @@ $(function(){
           'left': this.posx + "px",
           'top': this.posy + "px"
           });
-        this.posy += gravity;
-        if (this.left >= container_left) {
+        this.posy += enemy_grav;
+        if (this.left >= container_left && this.posy >= player_floor) {
           this.posx -=1;
           };
         if (this.posy >= player_floor) {
@@ -69,6 +69,7 @@ $(function(){
   var gravity = 0.1;
   var gravityspeed = 0;
   var grav_decrease = -5;
+  var enemy_grav = 5;
 
   var game_interval;
 
