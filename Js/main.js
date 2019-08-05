@@ -78,10 +78,12 @@ $(function(){
         });
       this.posy += enemy_grav;
       if (this.right >= container_left && this.posy >= player_floor) {
-        this.posx -=1;
-        } else if (player.right >= background_right && player_right == true) {
+        if (player.right >= background_right && player_right == true) {
             this.posx -=2;
+          } else {
+              this.posx -=1;
             };
+        };
       if (this.posy >= player_floor) {
         this.posy = player_floor;
         };
