@@ -7,44 +7,44 @@ $(function(){
       this.posx = 5;
       this.posy = 5;
       };
-      update_player(){
-        this.top = this.player.offset().top;
-        this.bottom = this.top + this.height;
-        this.left = this.player.offset().left;
-        this.right = this.left + this.width;
-        };
-      move_player(){
-        this.player.css({
-            'left': player.posx + "px",
-            'top': player.posy + "px"
-            });
-        this.posy += gravityspeed;
-        gravityspeed += gravity;
-        if (this.left >= container_left && player_left == true) {
-          this.posx -=2;
-          }
-        if (this.right <= background_right && player_right == true) {
-            this.posx +=2;
-            };
-        if (this.posy >= player_floor) {
-          this.posy = player_floor;
+    update_player(){
+      this.top = this.player.offset().top;
+      this.bottom = this.top + this.height;
+      this.left = this.player.offset().left;
+      this.right = this.left + this.width;
+      };
+    move_player(){
+      this.player.css({
+          'left': player.posx + "px",
+          'top': player.posy + "px"
+          });
+      this.posy += gravityspeed;
+      gravityspeed += gravity;
+      if (this.left >= container_left && player_left == true) {
+        this.posx -=2;
+        }
+      if (this.right <= background_right && player_right == true) {
+          this.posx +=2;
           };
-        if (this.posy >= player_floor && jump == true) {
-            this.posy -= 10;
-            gravityspeed = grav_decrease;
+      if (this.posy >= player_floor) {
+        this.posy = player_floor;
+        };
+      if (this.posy >= player_floor && jump == true) {
+          this.posy -= 10;
+          gravityspeed = grav_decrease;
+        };
+      };
+    move_background(){
+      if (this.right >= background_right && player_right == true) {
+        background.css({
+          'animation-play-state': 'running'
+          });
+        } else {
+            background.css({
+              'animation-play-state': 'paused'
+              });
           };
-        };
-      move_background(){
-        if (this.right >= background_right && player_right == true) {
-          background.css({
-            'animation-play-state': 'running'
-            });
-          } else {
-              background.css({
-                'animation-play-state': 'paused'
-                });
-            };
-        };
+      };
     };
 
   var player = new Player();
@@ -65,28 +65,28 @@ $(function(){
       this.posx = Math.floor(Math.random()*container.width());
       this.posy = Math.floor(Math.random()*container.height());
       };
-      update_enemy(){
-          this.top = this.enemy.offset().top;
-          this.bottom = this.top + this.height;
-          this.left = this.enemy.offset().left;
-          this.right = this.left + this.width;
+    update_enemy(){
+      this.top = this.enemy.offset().top;
+      this.bottom = this.top + this.height;
+      this.left = this.enemy.offset().left;
+      this.right = this.left + this.width;
+      };
+    move_enemy(){
+      this.enemy.css({
+        'left': this.posx + "px",
+        'top': this.posy + "px"
+        });
+      this.posy += enemy_grav;
+      if (this.right >= container_left && this.posy >= player_floor) {
+        this.posx -=1;
         };
-      move_enemy(){
-        this.enemy.css({
-          'left': this.posx + "px",
-          'top': this.posy + "px"
-          });
-        this.posy += enemy_grav;
-        if (this.left >= container_left && this.posy >= player_floor) {
-          this.posx -=1;
-          };
-        if (this.posy >= player_floor) {
-          this.posy = player_floor;
-          };
+      if (this.posy >= player_floor) {
+        this.posy = player_floor;
         };
-        destroy_enemy(){
-          if ((player.bottom - 1.5) == this.top && player.right >= this.left && player.left <= this.right) {
-            this.enemy.remove();
+      };
+    destroy_enemy(){
+      if ((player.bottom - 1.5) == this.top && player.right >= this.left && player.left <= this.right) {
+        this.enemy.remove();
         };
       };
     };
