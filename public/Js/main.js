@@ -1,62 +1,11 @@
-import Test from './test.js';
+import Container from './container.js';
+import Player from './player.js'
+
+// game start
 $(function(){
-  class Player {
-    constructor() {
-      this.player = $("#player");
-      this.height = this.player.height();
-      this.width = this.player.width();
-      this.posx = 5;
-      this.posy = 5;
-      this.health = 3;
-      };
-    update_player(){
-      this.top = this.player.offset().top;
-      this.bottom = this.top + this.height;
-      this.left = this.player.offset().left;
-      this.right = this.left + this.width;
-      };
-    move_player(){
-      this.player.css({
-          'left': player.posx + "px",
-          'top': player.posy + "px"
-          });
-      this.posy += gravityspeed;
-      gravityspeed += gravity;
-      if (this.left >= container_left && player_left == true) {
-        this.posx -=2;
-        }
-      if (this.right <= background_right && player_right == true) {
-          this.posx +=2;
-          };
-      if (this.posy >= player_floor) {
-        this.posy = player_floor;
-        };
-      if (this.posy >= player_floor && jump == true) {
-          this.posy -= 10;
-          gravityspeed = grav_decrease;
-        };
-      };
-    move_background(){
-      if (this.right >= background_right && player_right == true) {
-        background.css({
-          'animation-play-state': 'running'
-          });
-        } else {
-            background.css({
-              'animation-play-state': 'paused'
-              });
-          };
-      };
-    };
 
   var player = new Player();
-
-  var container = $("#game_area");
-  var container_top = container.offset().top;
-  var container_bottom = container_top + container.height();
-  var container_left = container.offset().left;
-  var container_right = container_left + container.width();
-  var player_floor = container_bottom - (player.height*1.5);
+  var container = new Container(player);
 
   var enemy_direction = 1;
 
@@ -116,45 +65,29 @@ $(function(){
 
   var enemies = [];
 
-  // game_start();
-
-  var background = $("#background");
-  var background_right = container_right - player.width;
-  var player_left = false;
-  var player_right = false;
-  var jump = false;
-
-  var gravity = 0.1;
-  var gravityspeed = 0;
-  var grav_decrease = -5;
-  var enemy_grav = 5;
-
   var game_interval;
-
 
   //arrow key movement
   $(document).keydown(function(e){
     switch (e.which) {
         case 37:
         case 65:
-          player_left = true;
+          player.player_left = true;
         break;
 
         case 39:
         case 68:
-          player_right = true;
+          player.player_right = true;
         break;
 
         case 38:
         case 87:
-          jump = true;
+          player.jump = true;
         break;
 
         case 32:
           // square = new Test;
           var enemy = new Enemy;
-          var square = new Test;
-          container.prepend(square.spawn);
           enemies.push(enemy);
         break;
 
@@ -167,17 +100,17 @@ $(function(){
     switch (e.which) {
       case 37:
       case 65:
-        player_left = false;
+        player.player_left = false;
       break;
 
       case 39:
       case 68:
-        player_right = false;
+        player.player_right = false;
       break;
 
       case 38:
       case 87:
-        jump = false;
+        player.jump = false;
       break;
 
       default: return;
@@ -187,24 +120,17 @@ $(function(){
 
   // function game_start(){
     game_interval = setInterval(function(){
-      container = $("#game_area");
-      container_top = container.offset().top
-      container_bottom = container_top + container.height();
-      container_left = container.offset().left;
-      container_right = container_left + container.width();
-      background_right = container_right - (player.width*2);
-      $(player).each(function(){
-        this.update_player();
-        this.move_player();
-        this.move_background();
-      });
+      player.update_player();
+      player.move_player(container);
+      player.move_background(container);
+
       $(enemies).each(function(){
         this.update_enemy();
         this.move_enemy();
         this.destroy_enemy();
         this.deal_damage();
         });
-      player_floor = container_bottom - (player.height*2);
+      // player_floor = container_bottom - (player.height*2);
       }, 10);
     // };
   });
