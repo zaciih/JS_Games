@@ -1,0 +1,53 @@
+.page_container {
+  display: flex;
+  justify-content: center;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+}
+
+.game_container {
+  display: flex;
+  position: absolute;
+  height: 600px;
+  width: 600px;
+  margin: auto;
+  overflow: hidden;
+}
+
+@keyframes animatedBackground {
+  to {background-position: 229% 0;}
+}
+
+#background {
+  background-image: url("../Images/8bit_background2.png");
+  background-position: 0 0;
+  background-repeat: repeat-x;
+  height: inherit;
+  width: inherit;
+  animation: animatedBackground 10s linear infinite;
+  animation-play-state: paused;
+}
+
+.player {
+  position: absolute;
+  height: 40px;
+  width: 60px;
+  content:url("../images/Enemy.png");
+}
+
+.enemy {
+  position: absolute;
+  height: auto;
+  width: auto;
+  content:url("../images/Enemy.png");
+}
+
+.test {
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  color: green;
+}
