@@ -1,4 +1,3 @@
-import Container from './container.js'
 export default class Player {
   constructor() {
     this.player = $("#player");
