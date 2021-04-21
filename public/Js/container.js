@@ -15,4 +15,7 @@ export default class Container {
     this.grav_decrease = -5;
     this.enemy_grav = 5;
   };
+  update_container(){
+    this.container_left = this.container.offset().left;
+  }
 }

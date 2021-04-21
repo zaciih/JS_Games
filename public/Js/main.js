@@ -62,9 +62,12 @@ $(function(){
 
   // function game_start(){
     var game_interval = setInterval(function(){
+      console.log(container.background.css('animation-play-state'));
       player.update_player();
       player.move_player(container);
       player.move_background(container);
+
+      container.update_container();
 
       $(enemies).each(function(){
         this.update_enemy();
