@@ -52,11 +52,16 @@ export default class Enemy {
       this.enemy.remove();
       };
     };
-  deal_damage(player){
+  deal_damage(player, enemies, hearts){
     if (this.left <= player.right && this.right >= player.left && player.top <= this.top && player.bottom >= this.bottom) {
       player.health -=1;
       this.enemy.remove();
+      enemies.pop();
+      hearts.pop();
+      $("#heart").remove();
       console.log("taking damage" + player.health);
+      console.log(hearts);
+      console.log(enemies);
       }
     };
   };

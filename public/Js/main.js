@@ -1,5 +1,6 @@
 import Container from './container.js';
 import Player from './player.js';
+import Heart from './player_health.js';
 import Enemy from './enemy.js';
 
 // game start
@@ -7,6 +8,13 @@ $(function(){
 
   var player = new Player();
   var container = new Container(player);
+
+  var hearts = [];
+
+  for ( var x = 0; x < player.maxHP; x ++){
+    var heart = new Heart();
+    hearts.push(heart);
+  }
 
   var enemies = [];
 
@@ -62,7 +70,6 @@ $(function(){
 
   // function game_start(){
     var game_interval = setInterval(function(){
-      console.log(container.background.css('animation-play-state'));
       player.update_player();
       player.move_player(container);
       player.move_background(container);
@@ -73,9 +80,15 @@ $(function(){
         this.update_enemy();
         this.move_enemy(container, player);
         this.destroy_enemy(container, player);
-        this.deal_damage(player);
+        this.deal_damage(player, enemies, hearts);
         });
       // player_floor = container_bottom - (player.height*2);
       }, 10);
+
+    var animate_interval = setInterval(function(){
+        $(hearts).each(function(){
+        this.animate();
+      });
+    }, 250);
     // };
   });

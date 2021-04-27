@@ -6,6 +6,7 @@ export default class Player {
     this.posx = 5;
     this.posy = 5;
     this.health = 3;
+    this.maxHP = 3;
     this.player_left = false;
     this.player_right = false;
     this.jump = false;

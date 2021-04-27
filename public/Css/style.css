@@ -17,6 +17,13 @@ h1 {
   overflow: hidden;
 }
 
+.heart_container {
+  display: flex;
+  position: absolute;
+  height: 32px;
+  width: 96px;
+}
+
 @keyframes animatedBackground {
   to {background-position: 229% 0;}
 }
@@ -45,9 +52,8 @@ h1 {
   content:url("../images/Enemy.png");
 }
 
-.test {
-  position: absolute;
-  height: 50px;
-  width: 50px;
-  color: green;
+.heart {
+  height: 32px;
+  width: 32px;
+  background: url("../images/Heart.png") 0px 0px;
 }
